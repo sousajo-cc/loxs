@@ -10,6 +10,8 @@
 
 loxs is a C++20 implementation of Bob Nystrom's toy language, [Lox](https://craftinginterpreters.com).
 
+Lox Git: [Lox Git](https://github.com/munificent/craftinginterpreters)
+
 Lox is syntatically similar to C and uses strong, dynamic types.
 
 
