@@ -9,10 +9,8 @@
 ![CMake](https://github.com/lefticus/cpp_starter_project/workflows/CMake/badge.svg)
 
 loxs is a C++20 implementation of Bob Nystrom's toy language, [Lox](https://craftinginterpreters.com).
-
-Lox Git: [Lox Git](https://github.com/munificent/craftinginterpreters)
+Lox github repository can be found [here](https://github.com/munificent/craftinginterpreters). Containing the markdown's of the text book and a full implementation of both interpreters (C and Java). 
 
 Lox is syntatically similar to C and uses strong, dynamic types.
-
 
 Templated with Jason Turner's, [cpp_starter_project](https://github.com/lefticus/cpp_starter_project).
