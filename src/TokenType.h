@@ -1,5 +1,6 @@
 #ifndef TOKEN_TYPE_H
 #define TOKEN_TYPE_H
+
 #include <string>
 #include <map>
 
@@ -24,8 +25,8 @@ const enum class TokenType {
   EOF
 };
 
-static const std::string TokenTypeString(const TokenType token) {
-  static const std::map<TokenType, std::string> tokenTypeString {
+inline const std::string TokenTypeString(const TokenType token) {
+  const std::map<TokenType, std::string> tokenTypeString {
     {TokenType::LEFT_PAREN, "LEFT_PAREN"},
     {TokenType::RIGHT_PAREN, "RIGHT_PAREN"},
     {TokenType::LEFT_BRACE, "LEFT_BRACE"},

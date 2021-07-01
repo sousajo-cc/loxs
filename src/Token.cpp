@@ -1,6 +1,6 @@
 #include "Token.h"
 
-std::string Tolkien::Token::toString()
+std::string Loxs::Token::toString()
 {
     return (TokenTypeString(this->type) + " " + this->lexeme + " " + this->literal);
 }

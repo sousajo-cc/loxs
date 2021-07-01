@@ -1,9 +1,10 @@
 #ifndef TOKEN_H
 #define TOKEN_H
+
 #include "TokenType.h"
 #include <any>
 #include <string>
-namespace Tolkien {
+namespace Loxs {
     class Token {
         private:
             const TokenType type;
