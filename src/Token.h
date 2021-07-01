@@ -3,17 +3,22 @@
 #include "TokenType.h"
 #include <any>
 #include <string>
+namespace Tolkien {
+    class Token {
+        private:
+            const TokenType type;
+            const std::string lexeme;
+            const std::any literal;
+            const int line;
+        public:
+            Token(TokenType type, std::string lexeme, std::any literal, int line) :
+                    type(type), 
+                    lexeme(lexeme), 
+                    literal(literal), 
+                    line(line) {};
 
-class Token {
-    private:
-        TokenType type;
-        std::string lexeme;
-        std::any literal;
-        int line;
-    public:
-        Token (TokenType, std::string, std::any, int);
-        std::string toString();
-
-};
+            std::string toString();
+    };
+}
 
 #endif // END TOKEN_H
