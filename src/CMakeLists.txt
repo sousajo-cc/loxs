@@ -50,3 +50,5 @@ target_link_libraries(
           CONAN_PKG::docopt.cpp
           CONAN_PKG::fmt
           CONAN_PKG::spdlog)
+
+add_library(token Token.cpp Token.h TokenType.h)

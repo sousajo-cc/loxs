@@ -5,6 +5,9 @@ project(myproject CXX)
 include(cmake/StandardProjectSettings.cmake)
 include(cmake/PreventInSourceBuilds.cmake)
 
+set(CMAKE_CXX_STANDARD 17)
+
+set(CONAN_CMAKE_CXX_STANDARD 17)
 # Link this 'library' to set the c++ standard / compile-time options requested
 add_library(project_options INTERFACE)
 target_compile_features(project_options INTERFACE cxx_std_17)

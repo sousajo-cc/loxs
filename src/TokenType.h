@@ -4,7 +4,7 @@
 #include <string>
 #include <map>
 
-const enum class TokenType {
+enum class TokenType {
   // Single-character tokens.
   LEFT_PAREN, RIGHT_PAREN, LEFT_BRACE, RIGHT_BRACE,
   COMMA, DOT, MINUS, PLUS, SEMICOLON, SLASH, STAR,
@@ -22,7 +22,7 @@ const enum class TokenType {
   AND, CLASS, ELSE, FALSE, FUN, FOR, IF, NIL, OR,
   PRINT, RETURN, SUPER, THIS, TRUE, VAR, WHILE,
 
-  EOF
+  EOf
 };
 
 inline const std::string TokenTypeString(const TokenType token) {
@@ -66,7 +66,7 @@ inline const std::string TokenTypeString(const TokenType token) {
     {TokenType::TRUE, "TRUE"},
     {TokenType::VAR, "VAR"},
     {TokenType::WHILE, "WHILE"},
-    {TokenType::EOF, "EOF"}
+    {TokenType::EOf, "EOF"}
   };
   return tokenTypeString.find(token) -> second;
 }

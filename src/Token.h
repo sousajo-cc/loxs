@@ -7,16 +7,16 @@
 namespace Loxs {
     class Token {
         private:
-            const TokenType type;
-            const std::string lexeme;
-            const std::any literal;
-            const int line;
+            const TokenType m_type;
+            const std::string m_lexeme;
+            const std::any m_literal;
+            const int m_line;
         public:
             Token(TokenType type, std::string lexeme, std::any literal, int line) :
-                    type(type), 
-                    lexeme(lexeme), 
-                    literal(literal), 
-                    line(line) {};
+                    m_type(type), 
+                    m_lexeme(lexeme), 
+                    m_literal(literal), 
+                    m_line(line) {};
 
             std::string toString();
     };
