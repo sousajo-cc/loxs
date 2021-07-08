@@ -41,14 +41,16 @@ if(CPP_STARTER_USE_NANA)
   add_subdirectory(nana)
 endif()
 
+set(src_files
+        Token.cpp Token.h TokenType.h main.cpp)
+
 # Generic test that uses conan libs
-add_executable(intro main.cpp)
+add_executable(loxs ${src_files})
 target_link_libraries(
-  intro
+        loxs
   PRIVATE project_options
           project_warnings
           CONAN_PKG::docopt.cpp
           CONAN_PKG::fmt
           CONAN_PKG::spdlog)
 
-add_library(token Token.cpp Token.h TokenType.h)

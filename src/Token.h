@@ -4,19 +4,20 @@
 #include "TokenType.h"
 #include <any>
 #include <string>
-namespace Loxs {
+
+namespace loxs {
     class Token {
         private:
-            const TokenType m_type;
-            const std::string m_lexeme;
-            const std::any m_literal;
-            const int m_line;
+            const TokenType type;
+            const std::string lexeme;
+            const std::any stringLiteral;
+            const int line;
         public:
-            Token(TokenType type, std::string lexeme, std::any literal, int line) :
-                    m_type(type), 
-                    m_lexeme(lexeme), 
-                    m_literal(literal), 
-                    m_line(line) {};
+            Token(TokenType tokenType, std::string lex, std::any literal, int lineToParse) :
+                    type(tokenType),
+                    lexeme(lex),
+                    stringLiteral(literal),
+                    line(lineToParse) {};
 
             std::string toString();
     };

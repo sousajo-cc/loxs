@@ -63,20 +63,3 @@ catch_discover_tests(
   OUTPUT_SUFFIX
   .xml)
 
-  # Disable the constexpr portion of the test, and build again this allows us to have an executable that we can debug when
-# things go wrong with the constexpr testing
-add_executable(TokenType_tests token_test/token_test.cpp)
-target_link_libraries(TokenType_tests PRIVATE project_warnings project_options catch_main token)
-
-catch_discover_tests(
-  TokenType_tests
-  TEST_PREFIX
-  "TokenType."
-  REPORTER
-  xml
-  OUTPUT_DIR
-  .
-  OUTPUT_PREFIX
-  "TokenType."
-  OUTPUT_SUFFIX
-  .xml)
