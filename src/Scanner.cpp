@@ -1,27 +1,97 @@
 #include "Scanner.h"
 namespace loxs {
-    /* Helper function to get current char */
-    const char Scanner::get_curr_char() {
-        return source.at(current++);
-    }
-
     /* Helper functions to add tokens to tokens list */
     void Scanner::addToken(TokenType type, std::any literal) {
-        std::string sub_string = source.substr(start, current);
-        tokens.push_front(Token(type, sub_string, literal, line));
+        std::string sub_string = source.substr(start, current-start);
+        tokens.emplace_back(Token(type, sub_string, std::move(literal), line));
     }
 
     /* Helper functions to add tokens to tokens list */
      void Scanner::addToken(TokenType type) {
-        addToken(type, NULL);
+        addToken(type, std::string(NULLITERAL));
     }
 
+    /* Helper functions to check if end of file was reached */
     bool Scanner::end_of_file() {
-        return (this->current >= this->source.length());
+        return (current >= source.length());
     }
-    bool Scanner::match() {
-        if(end_of_file()) return false;
+
+    /* Helper function to read chars */
+    char Scanner::peek() {
+        if(end_of_file()) {
+            return '\0';
+        }
+        return source.at(current);
     }
+
+    /* Helper functions to check if a next char is an operator e.g: == , != */
+    bool Scanner::match(char expected) {
+        if(end_of_file()) {
+            return false;
+        }
+        if(source.at(current) != expected) {
+            return false;
+        }
+        current++;
+        return true;
+    }
+
+    /* Helper function to fetch next char */
+    char Scanner::next_char() {
+        if((current + 1) >= source.length()) {
+            return '\0';
+        }
+        return source.at(current + 1);
+    }
+
+    /* This function catch a string literal */
+    void Scanner::string_literal() {
+        while(peek() != '"' && !end_of_file()) {
+            if(peek() == '\n') {
+                line++;
+            }
+            current++;
+        }
+        if(end_of_file()) {};
+            //return error
+        
+        current++; //Catch the "
+        std::string string_literal = source.substr(start+1, ((current-1) - (start+1)));
+        addToken(TokenType::STRING, string_literal);  
+    }
+
+    /* This function catch a number literal */
+    void Scanner::number_literal() {
+        while(peek() != '\n' && !end_of_file() && (isdigit(peek()) != 0)) {
+                current++;
+        }
+
+        if(peek() == '.' && (isdigit(next_char()) != 0)) {
+            current++;
+            while(isdigit(peek()) != 0) {
+                current++;
+            }
+        }
+
+        std::string number_literal = source.substr(start, current-start);
+        addToken(TokenType::NUMBER, stod(number_literal));
+    }
+
+    /* This function catch an indentifier */
+    void Scanner::identify_literal() {
+        while((isalpha(peek()) != 0) || peek() == '_') {
+            current++;
+        }
+        std::string keyword = source.substr(start, current - start);
+
+        if (keywords.find(keyword) != keywords.end()) {
+            addToken(keywords.find(keyword)->second);
+        }
+        else {
+            addToken(TokenType::IDENTIFIER);
+        }
+    }
+
     /* This function scan the token of each lexeme
     *   accordingly with the TokenType.
     */
@@ -51,8 +121,40 @@ namespace loxs {
             case '>':
                 addToken(match('=') ? TokenType::GREATER_EQUAL : TokenType::GREATER);
                 break;
+            case '/':
+                if (match('/')) {
+                  // A comment goes until the end of the line.
+                  while (peek() != '\n' && !end_of_file()) {
+                    current++;
+                  }
+                } else {
+                  addToken(TokenType::SLASH);
+                }
+                break;
+            case ' ':
+            case '\r':
+            case '\t':
+              // Ignore whitespace.
+              break;
+            case '\n':
+              line++;
+              break;
+            case '"': string_literal(); break;
+            case '|':
+                addToken(match('|') ? TokenType::OR : TokenType::NIL);
+                break;
+            case '&':
+                addToken(match('&') ? TokenType::AND : TokenType::SUPER);
+                break;
             default:
-            //Add Try catch here maybe
+             if (isdigit(curr_char) != 0) {
+                number_literal();
+             } else { 
+                if(isalpha(curr_char) != 0) {
+                    identify_literal();
+                }
+            }
+            //Add Try catch here maybe, in case the token isnt recognized
                 break;
         }
     }
@@ -69,6 +171,7 @@ namespace loxs {
             start = current;
             scanToken();
         }
-        tokens.push_front(Token(TokenType::EoF,"",NULL,line));
+        tokens.emplace_back(Token(TokenType::EoF,"",std::string(NULLITERAL),line));
+        return tokens;
     }
 }

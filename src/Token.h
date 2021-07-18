@@ -11,9 +11,9 @@ namespace loxs {
             const TokenType type;
             const std::string lexeme;
             const std::any stringLiteral;
-            const int line;
+            const long unsigned line;
         public:
-            Token(TokenType tokenType, std::string lex, std::any literal, int lineToParse) :
+            Token(TokenType tokenType, std::string lex, std::any literal, long unsigned lineToParse) :
                     type(tokenType),
                     lexeme(lex),
                     stringLiteral(literal),
