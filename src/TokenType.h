@@ -58,7 +58,7 @@ namespace loxs {
 
   inline const std::string TokenTypeString(const TokenType token)
   {
-    const std::map<TokenType, std::string> tokenTypeString{
+    const std::map<TokenType, std::string> tokenTypeString {
       { TokenType::LEFT_PAREN, "LEFT_PAREN" },
       { TokenType::RIGHT_PAREN, "RIGHT_PAREN" },
       { TokenType::LEFT_BRACE, "LEFT_BRACE" },

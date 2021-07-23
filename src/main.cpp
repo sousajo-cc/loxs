@@ -1,5 +1,7 @@
 #include <functional>
 #include <iostream>
+#include <fstream>
+#include <sstream>
 #include "Scanner.h"
 #include "Token.h"
 
@@ -10,33 +12,35 @@ static constexpr auto USAGE =
   R"(loxs.
 
     Usage:
-          loxs --source <path>
-          loxs --input 
+        loxs input <input>
+        loxs source <file>
+
     Options:
           -h --help     Show this screen.
-          -s --source   Path to source file.
-          -i --input    Text a line of code.
 )";
 
-int main()
+int main(int argc, const char** argv)
 {
-  std::list<loxs::Token> go;
-  /*std::map<std::string, docopt::value> args = docopt::docopt(USAGE,
+  std::list<loxs::Token> token_list;
+  std::map<std::string, docopt::value> args = docopt::docopt(USAGE,
     { std::next(argv), std::next(argv, argc) },
     true,// show help if requested
     "loxs 2.0");// version string
-  for (auto const &arg : args) {
-    std::cout << arg.first << arg.second << std::endl;
+  
+  if(args.find("source")->second.asBool())
+  {
+      std::ifstream source_file(args["<file>"].asString());
+      std::ostringstream ss;
+      ss << source_file.rdbuf();
+      loxs::Scanner s(ss.str());
+      token_list = s.scanTokens();
+      for (auto &t: token_list)
+        std::cout << t.toString() << std::endl;
   }
-
-
-  //Use the default logger (stdout, multi-threaded, colored)
-  spdlog::info("Hello, {}!", "World");
-
-  fmt::print("Hello, from {}\n", "{fmt}");*/
-
-  loxs::Scanner s("( == )");
-  go = s.scanTokens();
-  for (auto &t: go)
-    std::cout << t.toString() << std::endl;
+  else if (args.find("input")->second.asBool()) {
+      loxs::Scanner s(args["<input>"].asString());
+      token_list = s.scanTokens();
+      for (auto &t: token_list)
+        std::cout << t.toString() << std::endl;
+  }
 }
