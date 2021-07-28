@@ -21,7 +21,7 @@ static constexpr auto USAGE =
 
 int main(int argc, const char** argv)
 {
-  std::list<loxs::Token> token_list;
+  std::vector<loxs::Token> token_list;
   std::map<std::string, docopt::value> args = docopt::docopt(USAGE,
     { std::next(argv), std::next(argv, argc) },
     true,// show help if requested

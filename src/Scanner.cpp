@@ -3,7 +3,7 @@ namespace loxs {
     /* Helper functions to add tokens to tokens list */
     void Scanner::addToken(TokenType type, std::any literal) {
         std::string sub_string = source.substr(start, current-start);
-        tokens.emplace_back(Token(type, sub_string, std::move(literal), line));
+        tokens.emplace_back(Token(type, std::move(sub_string), std::move(literal), line));
     }
 
     /* Helper functions to add tokens to tokens list */
@@ -79,6 +79,24 @@ namespace loxs {
 
     /* This function catch an indentifier */
     void Scanner::identify_literal() {
+         // Map for special Keywords
+        static const std::map<std::string, TokenType> keywords {
+            {"class",  TokenType::CLASS},
+            {"else",   TokenType::ELSE},
+            {"false",  TokenType::FALSE},
+            {"for",    TokenType::FOR},
+            {"fun",    TokenType::FUN},
+            {"if",     TokenType::IF},
+            {"nil",    TokenType::NIL},
+            {"print",  TokenType::PRINT},
+            {"return", TokenType::RETURN},
+            {"super",  TokenType::SUPER},
+            {"this",   TokenType::THIS},
+            {"true",   TokenType::TRUE},
+            {"var",    TokenType::VAR},
+            {"while",  TokenType::WHILE}
+        };
+
         while((isalpha(peek()) != 0) || peek() == '_') {
             current++;
         }
@@ -165,7 +183,7 @@ namespace loxs {
     *       int i = 1;
     *   Three lexames: 'int', 'i' and '1'
     */    
-    std::list<Token> Scanner::scanTokens() {
+    std::vector<Token> Scanner::scanTokens() {
         while(!end_of_file())
         {
             start = current;
