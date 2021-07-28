@@ -9,7 +9,10 @@ namespace loxs {
 
     /* Helper functions to add tokens to tokens list */
      void Scanner::addToken(TokenType type) {
-        addToken(type, std::string(NULLITERAL));
+        auto sub_string = source.substr(start, current-start);
+        //fixme: we should improve the std::any is not good I prefer to have it
+        // here the constructor of the string so we know this is a pain point
+        tokens.emplace_back(Token(type, sub_string, std::string{" "}, line));
     }
 
     /* Helper functions to check if end of file was reached */
