@@ -16,13 +16,13 @@ namespace loxs {
     }
 
     /* Helper functions to check if end of file was reached */
-    bool Scanner::end_of_file() {
+    bool Scanner::endOfFile() {
         return (current >= source.length());
     }
 
     /* Helper function to read chars */
     char Scanner::peek() {
-        if(end_of_file()) {
+        if(endOfFile()) {
             return '\0';
         }
         return source.at(current);
@@ -30,7 +30,7 @@ namespace loxs {
 
     /* Helper functions to check if a next char is an operator e.g: == , != */
     bool Scanner::match(char expected) {
-        if(end_of_file()) {
+        if(endOfFile()) {
             return false;
         }
         if(source.at(current) != expected) {
@@ -41,7 +41,7 @@ namespace loxs {
     }
 
     /* Helper function to fetch next char */
-    char Scanner::next_char() {
+    char Scanner::nextChar() {
         if((current + 1) >= source.length()) {
             return '\0';
         }
@@ -49,28 +49,28 @@ namespace loxs {
     }
 
     /* This function catch a string literal */
-    void Scanner::string_literal() {
-        while(peek() != '"' && !end_of_file()) {
+    void Scanner::stringLiteral() {
+        while(peek() != '"' && !endOfFile()) {
             if(peek() == '\n') {
                 line++;
             }
             current++;
         }
-        if(end_of_file()) {};
+        if(endOfFile()) {};
             //return error
-        
+
         current++; //Catch the "
         std::string string_literal = source.substr(start+1, ((current-1) - (start+1)));
         addToken(TokenType::STRING, string_literal);  
     }
 
     /* This function catch a number literal */
-    void Scanner::number_literal() {
-        while(peek() != '\n' && !end_of_file() && (isdigit(peek()) != 0)) {
+    void Scanner::numberLiteral() {
+        while(peek() != '\n' && !endOfFile() && (isdigit(peek()) != 0)) {
                 current++;
         }
 
-        if(peek() == '.' && (isdigit(next_char()) != 0)) {
+        if(peek() == '.' && (isdigit(nextChar()) != 0)) {
             current++;
             while(isdigit(peek()) != 0) {
                 current++;
@@ -82,7 +82,7 @@ namespace loxs {
     }
 
     /* This function catch an indentifier */
-    void Scanner::identify_literal() {
+    void Scanner::identifyLiteral() {
          // Map for special Keywords
         static const std::map<std::string, TokenType> keywords {
             {"class",  TokenType::CLASS},
@@ -146,7 +146,7 @@ namespace loxs {
             case '/':
                 if (match('/')) {
                   // A comment goes until the end of the line.
-                  while (peek() != '\n' && !end_of_file()) {
+                  while (peek() != '\n' && !endOfFile()) {
                     current++;
                   }
                 } else {
@@ -161,7 +161,8 @@ namespace loxs {
             case '\n':
               line++;
               break;
-            case '"': string_literal(); break;
+            case '"':
+              stringLiteral(); break;
             case '|':
                 addToken(match('|') ? TokenType::OR : TokenType::NIL);
                 break;
@@ -170,10 +171,10 @@ namespace loxs {
                 break;
             default:
              if (isdigit(curr_char) != 0) {
-                number_literal();
+               numberLiteral();
              } else { 
                 if(isalpha(curr_char) != 0) {
-                    identify_literal();
+                  identifyLiteral();
                 }
             }
             //Add Try catch here maybe, in case the token isnt recognized
@@ -188,12 +189,12 @@ namespace loxs {
     *   Three lexames: 'int', 'i' and '1'
     */    
     std::vector<Token> Scanner::scanTokens() {
-        while(!end_of_file())
+        while(!endOfFile())
         {
             start = current;
             scanToken();
         }
-        tokens.emplace_back(Token(TokenType::EoF,"",std::string(NULLITERAL),line));
+        tokens.emplace_back(Token(TokenType::EoF,"",line));
         return tokens;
     }
 }

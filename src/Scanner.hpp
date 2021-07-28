@@ -15,13 +15,13 @@ namespace loxs {
             const std::string source; //Code source
             std::vector<Token> tokens; //List of tokens
             void scanToken();
-            bool end_of_file();
+            bool endOfFile();
             char peek();
-            void string_literal();
-            void number_literal();
-            void identify_literal();
+            void stringLiteral();
+            void numberLiteral();
+            void identifyLiteral();
             bool match(char expected);
-            char next_char();
+            char nextChar();
             std::size_t current; //Points the current char of lexeme
             std::size_t start;  //Points to the first char of lexem
             std::size_t line ;  //Points to the line where current is
