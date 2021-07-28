@@ -5,7 +5,6 @@
 #include "Scanner.h"
 #include "Token.h"
 
-#include <spdlog/spdlog.h>
 #include <docopt/docopt.h>
 
 static constexpr auto USAGE =
@@ -34,13 +33,15 @@ int main(int argc, const char** argv)
       ss << source_file.rdbuf();
       loxs::Scanner s(ss.str());
       token_list = s.scanTokens();
-      for (auto &t: token_list)
+      for (auto &t: token_list) {
         std::cout << t.toString() << std::endl;
+      }
   }
   else if (args.find("input")->second.asBool()) {
       loxs::Scanner s(args["<input>"].asString());
       token_list = s.scanTokens();
-      for (auto &t: token_list)
+      for (auto &t: token_list) {
         std::cout << t.toString() << std::endl;
+      }
   }
 }
