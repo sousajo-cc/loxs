@@ -22,16 +22,19 @@ namespace loxs {
             void identify_literal();
             bool match(char expected);
             char next_char();
-            std::size_t current = 0; //Points the current char of lexeme
-            std::size_t start = 0;  //Points to the first char of lexem
-            std::size_t line = 1;  //Points to the line where current is
+            std::size_t current; //Points the current char of lexeme
+            std::size_t start;  //Points to the first char of lexem
+            std::size_t line ;  //Points to the line where current is
         public:
-            explicit Scanner(std::string code) : source(std::move(code)) {}
+            explicit Scanner(std::string code) : source(std::move(code)),
+                                                  current(0),
+                                                  start(0),
+                                                  line(1){}
             std::vector<Token> scanTokens();
             void addToken(TokenType type, std::any literal);
             void addToken(TokenType type);
             char get_curr_char() { return source.at(current++); }
-            std::size_t get_line() const { return line; }
+            [[nodiscard]] std::size_t get_line() const { return line; }
     };
 }
 #endif //END SCANNER_H

@@ -1,9 +1,10 @@
 #include "Scanner.hpp"
+
 namespace loxs {
     /* Helper functions to add tokens to tokens list */
     void Scanner::addToken(TokenType type, std::any literal) {
-        std::string sub_string = source.substr(start, current-start);
-        tokens.emplace_back(Token(type, std::move(sub_string), std::move(literal), line));
+        auto sub_string = source.substr(start, current-start);
+        tokens.emplace_back(Token(type, sub_string, std::move(literal), line));
     }
 
     /* Helper functions to add tokens to tokens list */
