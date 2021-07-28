@@ -5,7 +5,7 @@
 #include <string>
 #include <vector>
 #include <map>
-#include "Token.h"
+#include "Token.hpp"
 
 
 constexpr char NULLITERAL[] = " ";

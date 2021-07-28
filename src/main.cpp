@@ -2,8 +2,8 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
-#include "Scanner.h"
-#include "Token.h"
+#include "Scanner.hpp"
+#include "Token.hpp"
 
 #include <docopt/docopt.h>
 

@@ -1,4 +1,4 @@
-#include "Scanner.h"
+#include "Scanner.hpp"
 namespace loxs {
     /* Helper functions to add tokens to tokens list */
     void Scanner::addToken(TokenType type, std::any literal) {
