@@ -42,7 +42,7 @@ if(CPP_STARTER_USE_NANA)
 endif()
 
 set(src_files
-        Token.cpp TokenType.h Scanner.cpp main.cpp)
+        Token.cpp TokenType.hpp Scanner.cpp main.cpp)
 
 # Generic test that uses conan libs
 add_executable(loxs ${src_files})

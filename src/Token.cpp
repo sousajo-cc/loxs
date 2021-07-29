@@ -1,4 +1,4 @@
-#include "Token.h"
+#include "Token.hpp"
 
 std::string loxs::Token::toString()
 {
